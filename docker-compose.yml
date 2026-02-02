@@ -12,7 +12,7 @@ services:
     environment:
       - UV_PROJECT_ENVIRONMENT=/app/.venv
     ports:
-      - "10080:10080"
+      - "8001:8001"
     command: >
       sh -c "pip install uv && 
              uv sync && 
