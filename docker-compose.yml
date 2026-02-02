@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  # 你的 Python MCP Server
+  mcp-server:
+    image: python:3.14.2-alpine3.23
+    container_name: LennySkills
+    working_dir: /app
+    volumes:
+      - .:/app 
+      - /app/.venv
+    environment:
+      - UV_PROJECT_ENVIRONMENT=/app/.venv
+      - QUESTDB_HOST=questdb 
+    ports:
+      - "10080:10080"
+    depends_on:
+      - questdb
+    command: >
+      sh -c "pip install uv && 
+             uv sync && 
+             .venv/bin/python MCPserver.py"
+

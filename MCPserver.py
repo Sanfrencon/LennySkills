@@ -45,5 +45,14 @@ if SKILLS_DIR.exists():
             mcp.resource(f"skill://{slug}")(create_resource_func())
 
 if __name__ == "__main__":
-    # 启动 MCP Server
-    mcp.run()
+    # 从环境变量获取配置，方便部署
+    host = os.getenv("MCP_HOST", "0.0.0.0")
+    port = int(os.getenv("MCP_PORT", 10080))
+
+    # 以 SSE 模式启动 MCP Server
+    # SSE 模式允许通过 HTTP 协议访问，通常用于 Web 端或远程连接
+    mcp.run(
+        transport="sse",
+        host=host,
+        port=port,
+    )
